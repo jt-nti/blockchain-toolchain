@@ -43,6 +43,8 @@ stages:
   jobs:
   - name: Build
     type: builder
+    build_type: customimage
+    docker_image: 'taylorjm/blockchain-pipeline-job:r1'
     script: |-
       #!/bin/bash
       source "${SCRIPT_DIR}/pipeline-BUILD.sh"
@@ -74,6 +76,8 @@ stages:
       organization: ${ORG_NAME}
       space: ${SPACE_NAME}
       application: ${APP_NAME}
+    build_type: customimage
+    docker_image: 'taylorjm/blockchain-pipeline-job:r1'
     script: |-
       #!/bin/bash
       source "${SCRIPT_DIR}/pipeline-DEPLOY.sh"
