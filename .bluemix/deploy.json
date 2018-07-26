@@ -14,6 +14,12 @@
     },
     "type": "object",
     "properties": {
+        "api-key": {
+            "description": {
+                "$ref": "#/messages/deploy.apiKeyDescription"
+            },
+            "type": "string"
+        },
         "blockchain-service-instance": {
             "description": {
                 "$ref": "#/messages/deploy.blockchainServiceDescription"
@@ -56,6 +62,7 @@
         }
     },
     "required": [
+        "api-key",
         "blockchain-service-instance",
         "cloudant-service-instance",
         "deploy-app-name",
@@ -67,6 +74,14 @@
         {
             "type": "validator",
             "url": "/devops/setup/bm-helper/helper.html"
+        },
+        {
+	        "type": "password",
+	        "readonly": false,
+	        "title": {
+                "$ref": "#/messages/deploy.apiKeyTitle"
+            },
+	        "key": "api-key"
         },
         {
             "type": "text",

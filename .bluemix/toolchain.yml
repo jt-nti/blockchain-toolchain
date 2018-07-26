@@ -49,6 +49,7 @@ services:
           REGION_ID: '{{form.pipeline.parameters.deploy-region}}'
           ORG_NAME: '{{form.pipeline.parameters.deploy-organization}}'
           SPACE_NAME: '{{form.pipeline.parameters.deploy-space}}'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
         execute: true
   webide:
     service_id: orion

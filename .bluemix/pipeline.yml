@@ -54,6 +54,9 @@ stages:
   triggers:
   - type: stage
   properties:
+  - name: API_KEY
+    value: ${API_KEY}
+    type: secure
   - name: REGION_ID
     value: ${REGION_ID}
     type: text
@@ -70,10 +73,12 @@ stages:
   - name: Deploy
     type: deployer
     target:
+      api_key: ${API_KEY}
       region_id: ${REGION_ID}
       organization: ${ORG_NAME}
       space: ${SPACE_NAME}
       application: ${APP_NAME}
     script: |-
       #!/bin/bash
-      source "${SCRIPT_DIR}/pipeline-DEPLOY.sh"
+      #source "${SCRIPT_DIR}/pipeline-DEPLOY.sh"
+      env
