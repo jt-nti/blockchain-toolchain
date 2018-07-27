@@ -11,24 +11,15 @@ stages:
   - name: SCRIPT_DIR
     value: ${SCRIPT_DIR}
     type: text
-  - name: BUILD_LIB_URL
-    value: 'https://github.com/IBM-Blockchain-Starter-Kit/build-lib/releases/download/v0.1-preview1/sample-blockchain-build-lib.tgz'
+  - name: SCRIPT_URL
+    value: 'https://raw.githubusercontent.com/jt-nti/build-lib/53-sample-builds/src'
     type: text
   jobs:
   - name: Prepare
     type: builder
     script: |-
       #!/bin/bash
-      set -ex
-
-      if [ -n "$BUILD_LIB_URL" ]; then
-        build_lib_dir=$(mktemp -d)
-
-        (curl -fsSL ${BUILD_LIB_URL}) > ${build_lib_dir}/blockchain-build-lib.tgz
-
-        mkdir -p $SCRIPT_DIR
-        tar --keep-old-files -xvzf ${build_lib_dir}/blockchain-build-lib.tgz -C $SCRIPT_DIR > /dev/null 2>&1 || true
-      fi
+      source <(curl -sSL "${SCRIPT_URL}/prepare-unstable.sh")
 - name: BUILD
   inputs:
   - type: job
@@ -45,7 +36,7 @@ stages:
     type: builder
     script: |-
       #!/bin/bash
-      source "${SCRIPT_DIR}/pipeline-BUILD.sh"
+      source "${SCRIPT_DIR}/router.sh" build sample
 - name: "DEPLOY"
   inputs:
   - type: job
@@ -76,4 +67,4 @@ stages:
       application: ${APP_NAME}
     script: |-
       #!/bin/bash
-      source "${SCRIPT_DIR}/pipeline-DEPLOY.sh"
+      source "${SCRIPT_DIR}/router.sh" deploy sample
